@@ -7,16 +7,16 @@ class Solution {
         return search(nums2, nums1, 0, nums2.length-1);
     }
     
-    int val(int[] a, int i) {
+    int val(int[] a, int i) { //for handling out of bound index also
         if(i < 0)           return Integer.MIN_VALUE;
         if(i >= a.length)   return Integer.MAX_VALUE;
         else                return a[i];
     }
 
 
-    double search(int a[], int b[], int l, int r) {
+    double search(int a[], int b[], int l, int r) { // Modified Binary Search
         
-        int x = l + (r-l)/2;
+        int x = l + (r-l)/2; // mid of binary search
         int y = ((a.length + b.length + 1) / 2) - x;
 
 
