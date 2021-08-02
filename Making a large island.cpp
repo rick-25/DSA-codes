@@ -22,9 +22,6 @@ class Solution {
 
     int bfs(vector<vector<int>>& grid, int r, int c, int index) 
     {
-        unordered_set<string> seen;
-        unordered_set<int> visitedIslands;
-
         queue<pair<int, int>> line;
         line.push({r, c});
         
@@ -40,30 +37,17 @@ class Solution {
                 continue; 
 
 
-            string token = to_string(cur.first) + ", " + to_string(cur.second);
-            if(seen.find(token) != seen.end())
+            if(islandIndex[cur.first][cur.second] == index)
                 continue;
-            seen.insert(token);
-
-            if(islandIndex[cur.first][cur.second] > -1 && islandIndex[cur.first][cur.second] != index)
-            {
-                if(visitedIslands.find(islandIndex[cur.first][cur.second]) == visitedIslands.end())
-                {
-                    totalNodes += islandArea[islandIndex[cur.first][cur.second]]; 
-                    visitedIslands.insert(islandIndex[cur.first][cur.second]);
-                }
-                continue;
-            }
-            //inspectino ends
+            //inspection ends
 
 
             totalNodes++;
             if(index > -1)  islandIndex[cur.first][cur.second] = index;
-
-            line.push({cur.first-1, cur.second});
-            line.push({cur.first, cur.second+1});
-            line.push({cur.first+1, cur.second});
-            line.push({cur.first, cur.second-1});
+    
+            for(int k=0; k<4; k++) {
+                line.push({cur.first + moves[k][0], cur.second + moves[k][1]});
+            }
         }
 
         return totalNodes;
